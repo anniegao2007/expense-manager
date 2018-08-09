@@ -29,7 +29,7 @@ router.route('/update').post((req, res) => {
         month: req.body.month,
         year: req.body.year
     };
-    Expense.update({_id: req.body._id}, doc, (err, result) => {
+    Expense.update({_id: req.body.id}, doc, (err, result) => {
         if(err) {
             res.send(err);
         }
