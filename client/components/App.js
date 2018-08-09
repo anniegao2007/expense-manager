@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Add from './Add';
 import Update from './Update';
+import Delete from './Delete';
 import '../css/App.css';
 
 export default class App extends Component {
@@ -43,7 +44,8 @@ export default class App extends Component {
               <th className="button-col">Amount</th>
               <th className="button-col">Month</th>
               <th className="button-col">Year</th>
-              <th></th>
+              <th className="button-col">Update</th>
+              <th className="button-col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -55,7 +57,8 @@ export default class App extends Component {
                   <td className="button-col">{exp.amount}</td>
                   <td className="button-col">{exp.month}</td>
                   <td className="button-col">{exp.year}</td>
-                  <td><Update id={exp._id} desc={exp.description} amt={exp.amount} month={exp.month} year={exp.year}/></td>
+                  <td className="button-col"><Update id={exp._id} desc={exp.description} amt={exp.amount} month={exp.month} year={exp.year}/></td>
+                  <td className="button-col"><Delete id={exp._id}/></td>
                 </tr>
               ))
             }

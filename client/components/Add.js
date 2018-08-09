@@ -44,7 +44,6 @@ export default class Add extends React.Component {
     }
 
     handleTextChange(e) {
-        console.log('text changed to ' + e.target.value);
         if(e.target.name === 'description') {
             this.setState({ description: e.target.value });
         } else if(e.target.name === 'amount') {
@@ -53,7 +52,6 @@ export default class Add extends React.Component {
     }
 
     handleSelectChange(e) {
-        console.log('select changed to ' + e.target.value);
         if(e.target.name === 'month') {
             this.setState({ month: e.target.value });
         } else if(e.target.name === 'year') {
@@ -77,7 +75,6 @@ export default class Add extends React.Component {
                         "Content-Type": "application/x-www-form-urlencoded"
                     }
         }).then((response) => {
-            console.log('response: ' + response.data);
             e.setState({
                 messageFromServer: response.data
             });
@@ -94,7 +91,7 @@ export default class Add extends React.Component {
                   <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} contentLabel="Add Expense" className="Modal">
                     <Link to={{pathname: '/', search: ''}} style={{textDecoration: 'none'}}>
                         <Button bsStyle="danger" bsSize="xsmall" onClick={this.closeModal}>
-                            <span className="closebtn glyphicaon glyphicon-remove"></span>
+                            <span className="closebtn glyphicon glyphicon-remove"></span>
                         </Button>
                     </Link> <br />
 
@@ -104,8 +101,8 @@ export default class Add extends React.Component {
                         <label htmlFor="amount">Amount:</label>
                         <input type="number" id="amount" name="amount" onBlur={this.handleTextChange}></input>
                         <label htmlFor="month">Month:</label>
-                        <select id="month" name="month" onBlur={this.handleSelectChange}>
-                            <option value="Jan" id="Jan" selected="selected">Jan</option>
+                        <select id="month" name="month" onBlur={this.handleSelectChange} defaultValue="Jan">
+                            <option value="Jan" id="Jan">Jan</option>
                             <option value="Feb" id="Feb">Feb</option>
                             <option value="Mar" id="Mar">Mar</option>
                             <option value="Apr" id="Apr">Apr</option>
@@ -119,8 +116,8 @@ export default class Add extends React.Component {
                             <option value="Dec" id="Dec">Dec</option>
                         </select>
                         <label htmlFor="year">Year:</label>
-                        <select id="year" name="year" onBlur={this.handleSelectChange}>
-                            <option value="2018" id="19" selected="selected">2018</option>
+                        <select id="year" name="year" onBlur={this.handleSelectChange} defaultValue="2018">
+                            <option value="2018" id="19">2018</option>
                             <option value="2019" id="19">2019</option>
                             <option value="2020" id="20">2020</option>
                             <option value="2021" id="21">2021</option>
@@ -140,7 +137,7 @@ export default class Add extends React.Component {
                     <Button bsStyle="success" bsSize="small" onClick={this.openModal}>
                         <span className="glyphicon glyphicon-plus"></span>
                     </Button>
-                    <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} contentLabel="Add Expense" className="Modal">
+                    <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} contentLabel="Add Expense" className="Modal">
                         <div className="button-center">
                             <h3>{this.state.messageFromServer}</h3>
                             <Link to={{pathname: '/', search: ''}} style={{textDecoration: 'none'}}>

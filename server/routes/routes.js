@@ -37,9 +37,9 @@ router.route('/update').post((req, res) => {
     });
 });
 
-router.get('/delete', (req, res) => {
+router.route('/delete').get((req, res) => {
     let id = req.query.id;
-    Expense.find({_id: id}).remove().exec((err, expense) => {
+    Expense.remove({_id: id}, (err) => {
         if(err) {
             res.send(err);
         }
