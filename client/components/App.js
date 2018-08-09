@@ -4,6 +4,8 @@ import axios from 'axios';
 import Add from './Add';
 import Update from './Update';
 import Delete from './Delete';
+import { Tab, Tabs } from 'react-bootstrap';
+import YearTabsRouter from './tabs/yearTabsRouter';
 import '../css/App.css';
 
 export default class App extends Component {
@@ -15,14 +17,21 @@ export default class App extends Component {
       data: []
     };
     this.getData = this.getData.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentDidMount() {
-    this.getData(this, '2018');
+    this.getData(this, this.state.selectedYear);
   }
 
-  componentWillReceiveProps() {
-    this.getData(this, '2018');
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.history.location.search) {
+      let search = nextProps.history.location.search.substring(1);
+      let searchObj = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"')
+        .replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+      this.setState({ selectedYear: searchObj.year });
+      this.getData(this, searchObj.year);
+    }
   }
 
   getData(ev, year) {
@@ -33,9 +42,20 @@ export default class App extends Component {
       });
   }
 
+  handleSelect(tab) {
+    this.setState({ selectedYear: tab });
+  }
+
   render() {
     return (
       <div>
+        <Tabs id="yearTabs" activeKey={this.state.selectedYear} onSelect={this.handleSelect}>
+          <Tab eventKey={2018} title={<YearTabsRouter year='2018'/>}></Tab>
+          <Tab eventKey={2019} title={<YearTabsRouter year='2019'/>}></Tab>
+          <Tab eventKey={2020} title={<YearTabsRouter year='2020'/>}></Tab>
+          <Tab eventKey={2021} title={<YearTabsRouter year='2021'/>}></Tab>
+          <Tab eventKey={2022} title={<YearTabsRouter year='2022'/>}></Tab>
+        </Tabs>
         <table>
           <thead>
             <tr>
@@ -64,7 +84,7 @@ export default class App extends Component {
             }
           </tbody>
         </table>
-        <Add />
+        <Add year={this.state.selectedYear}/>
       </div>
     );
   }

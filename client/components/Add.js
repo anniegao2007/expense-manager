@@ -12,7 +12,7 @@ export default class Add extends React.Component {
             description: '',
             amount: '',
             month: 'Jan',
-            year: '2018',
+            year: '',
             messageFromServer: '',
             modalIsOpen: false
         }
@@ -28,6 +28,10 @@ export default class Add extends React.Component {
         Modal.setAppElement('body');
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({ year: props.year });
+    }
+
     openModal() {
         this.setState({ modalIsOpen: true });
     }
@@ -38,7 +42,7 @@ export default class Add extends React.Component {
             description: '',
             amount: '',
             month: 'Jan',
-            year: '2018',
+            year: '',
             messageFromServer: ''
         });
     }
@@ -116,7 +120,7 @@ export default class Add extends React.Component {
                             <option value="Dec" id="Dec">Dec</option>
                         </select>
                         <label htmlFor="year">Year:</label>
-                        <select id="year" name="year" onBlur={this.handleSelectChange} defaultValue="2018">
+                        <select id="year" name="year" onBlur={this.handleSelectChange} defaultValue={this.state.year}>
                             <option value="2018" id="19">2018</option>
                             <option value="2019" id="19">2019</option>
                             <option value="2020" id="20">2020</option>
