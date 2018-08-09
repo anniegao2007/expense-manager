@@ -102,7 +102,7 @@ export default class Update extends React.Component {
                     <span className="glyphicon glyphicon-edit"></span>
                   </Button>
                   <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} contentLabel="Update Expense" className="Modal">
-                    <Link to={{pathname: '/', search: ''}} style={{textDecoration: 'none'}}>
+                    <Link to={{pathname: '/', search: '?year=' + this.state.year}} style={{textDecoration: 'none'}}>
                         <Button bsStyle="danger" bsSize="xsmall" onClick={this.closeModal}>
                             <span className="closebtn glyphicon glyphicon-remove"></span>
                         </Button>
@@ -153,7 +153,7 @@ export default class Update extends React.Component {
                     <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} contentLabel="Update Expense" className="Modal">
                         <div className="button-center">
                             <h3>{this.state.messageFromServer}</h3>
-                            <Link to={{pathname: '/', search: ''}} style={{textDecoration: 'none'}}>
+                            <Link to={{pathname: '/', search: '?year=' + this.state.year}} style={{textDecoration: 'none'}}>
                                 <Button bsStyle="success" bsSize="xsmall" onClick={this.closeModal}>Close the Dialog</Button>
                             </Link>
                         </div>

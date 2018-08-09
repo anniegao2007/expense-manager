@@ -33924,7 +33924,7 @@ var App = function (_Component) {
   }, {
     key: 'getData',
     value: function getData(ev, year) {
-      _axios2.default.get('/getAll?month=All&year=' + year).then(function (response) {
+      _axios2.default.get('/getAll?year=' + year).then(function (response) {
         ev.setState({ data: response.data });
         ev.setState({ selectedYear: parseInt(year) });
       });
@@ -34027,7 +34027,7 @@ var App = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   { className: 'button-col' },
-                  _react2.default.createElement(_Delete2.default, { id: exp._id })
+                  _react2.default.createElement(_Delete2.default, { id: exp._id, year: exp.year })
                 )
               );
             })
@@ -35060,7 +35060,6 @@ var Add = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log('default year is ' + this.state.year);
             if (this.state.messageFromServer === '') {
                 return _react2.default.createElement(
                     'div',
@@ -35075,7 +35074,7 @@ var Add = function (_React$Component) {
                         { isOpen: this.state.modalIsOpen, onRequestClose: this.closeModal, contentLabel: 'Add Expense', className: 'Modal' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
+                            { to: { pathname: '/', search: '?year=' + this.state.year }, style: { textDecoration: 'none' } },
                             _react2.default.createElement(
                                 _reactBootstrap.Button,
                                 { bsStyle: 'danger', bsSize: 'xsmall', onClick: this.closeModal },
@@ -35237,7 +35236,7 @@ var Add = function (_React$Component) {
                             ),
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
+                                { to: { pathname: '/', search: '?year=' + this.state.year }, style: { textDecoration: 'none' } },
                                 _react2.default.createElement(
                                     _reactBootstrap.Button,
                                     { bsStyle: 'success', bsSize: 'xsmall', onClick: this.closeModal },
@@ -48251,7 +48250,7 @@ var Update = function (_React$Component) {
                         { isOpen: this.state.modalIsOpen, onRequestClose: this.closeModal, contentLabel: 'Update Expense', className: 'Modal' },
                         _react2.default.createElement(
                             _reactRouterDom.Link,
-                            { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
+                            { to: { pathname: '/', search: '?year=' + this.state.year }, style: { textDecoration: 'none' } },
                             _react2.default.createElement(
                                 _reactBootstrap.Button,
                                 { bsStyle: 'danger', bsSize: 'xsmall', onClick: this.closeModal },
@@ -48413,7 +48412,7 @@ var Update = function (_React$Component) {
                             ),
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
+                                { to: { pathname: '/', search: '?year=' + this.state.year }, style: { textDecoration: 'none' } },
                                 _react2.default.createElement(
                                     _reactBootstrap.Button,
                                     { bsStyle: 'success', bsSize: 'xsmall', onClick: this.closeModal },
@@ -48482,7 +48481,8 @@ var Delete = function (_React$Component) {
         _this.state = {
             id: '',
             messageFromServer: '',
-            modalIsOpen: false
+            modalIsOpen: false,
+            year: ''
         };
         _this.deleteItem = _this.deleteItem.bind(_this);
         _this.onClick = _this.onClick.bind(_this);
@@ -48493,7 +48493,10 @@ var Delete = function (_React$Component) {
     _createClass(Delete, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.setState({ id: this.props.id });
+            this.setState({
+                id: this.props.id,
+                year: this.props.year
+            });
         }
     }, {
         key: 'closeModal',
@@ -48554,7 +48557,7 @@ var Delete = function (_React$Component) {
                             ),
                             _react2.default.createElement(
                                 _reactRouterDom.Link,
-                                { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
+                                { to: { pathname: '/', search: '?year=' + this.state.year }, style: { textDecoration: 'none' } },
                                 _react2.default.createElement(
                                     _reactBootstrap.Button,
                                     { bsStyle: 'success', bsSize: 'xsmall', onClick: this.closeModal },
@@ -48627,7 +48630,7 @@ var YearTabsRouter = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: { pathname: '/', search: '?month=All&year=' + this.props.year } },
+                { to: { pathname: '/', search: '?year=' + this.props.year } },
                 _react2.default.createElement(
                     'p',
                     { style: this.state.style },

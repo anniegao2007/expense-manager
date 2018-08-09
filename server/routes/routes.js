@@ -3,6 +3,21 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const Expense = require('../../models/Expense');
 
+const monthDict = {
+    'Jan': 1,
+    'Feb': 2,
+    'Mar': 3,
+    'Apr': 4,
+    'May': 5,
+    'Jun': 6,
+    'Jul': 7,
+    'Aug': 8,
+    'Sep': 9,
+    'Oct': 10,
+    'Nov': 11,
+    'Dec': 12
+};
+
 router.get('/', (req, res) => {
     res.render('index');
 });
@@ -48,23 +63,16 @@ router.route('/delete').get((req, res) => {
 });
 
 router.get('/getAll', (req, res) => {
-    let monthRec = req.query.month;
     let yearRec = req.query.year;
-    if(monthRec && monthRec != 'All') {
-        Expense.find({ $and: [ {month: monthRec}, {year: yearRec} ]}, (err, expenses) => {
-            if(err) {
-                res.send(err);
-            }
-            res.json(expenses);
+    Expense.find({year: yearRec}, (err, expenses) => {
+        if(err) {
+            res.send(err);
+        }
+        expenses.sort((a, b) => {
+            return monthDict[a.month] - monthDict[b.month];
         });
-    } else {
-        Expense.find({year: yearRec}, (err, expenses) => {
-            if(err) {
-                res.send(err);
-            }
-            res.json(expenses);
-        });
-    }
+        res.json(expenses);
+    });
 });
 
 module.exports = router;

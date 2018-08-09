@@ -11,7 +11,8 @@ export default class Delete extends React.Component {
         this.state = {
             id: '',
             messageFromServer: '',
-            modalIsOpen: false
+            modalIsOpen: false,
+            year: ''
         };
         this.deleteItem = this.deleteItem.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -19,7 +20,10 @@ export default class Delete extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ id: this.props.id });
+        this.setState({
+            id: this.props.id,
+            year: this.props.year,
+        });
     }
 
     closeModal() {
@@ -61,7 +65,7 @@ export default class Delete extends React.Component {
                     <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} contentLabel="Delete Expense" className="Modal">
                         <div className="button-center">
                             <h3>{this.state.messageFromServer}</h3>
-                            <Link to={{pathname: '/', search: ''}} style={{textDecoration: 'none'}}>
+                            <Link to={{pathname: '/', search: '?year=' + this.state.year}} style={{textDecoration: 'none'}}>
                                 <Button bsStyle="success" bsSize="xsmall" onClick={this.closeModal}>Close the Dialog</Button>
                             </Link>
                         </div>

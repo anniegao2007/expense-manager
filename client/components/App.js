@@ -35,7 +35,7 @@ export default class App extends Component {
   }
 
   getData(ev, year) {
-    axios.get('/getAll?month=All&year='+year)
+    axios.get('/getAll?year='+year)
       .then((response) => {
         ev.setState({ data: response.data });
         ev.setState({ selectedYear: parseInt(year) });
@@ -78,7 +78,7 @@ export default class App extends Component {
                   <td className="button-col">{exp.month}</td>
                   <td className="button-col">{exp.year}</td>
                   <td className="button-col"><Update id={exp._id} desc={exp.description} amt={exp.amount} month={exp.month} year={exp.year}/></td>
-                  <td className="button-col"><Delete id={exp._id}/></td>
+                  <td className="button-col"><Delete id={exp._id} year={exp.year}/></td>
                 </tr>
               ))
             }
